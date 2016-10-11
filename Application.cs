@@ -1,21 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace Ulam
 {
-    class Application
+    internal class Application
     {
         public static Application Instance;
-        private int _turns;
-        private int x = 30;
-        private int y = 30;
-        private int donePath;
         private int _lenght = 1;
+        private int _turns;
+        private int donePath;
+        private int x;
+        private int y;
 
         static Application()
         {
@@ -24,13 +21,17 @@ namespace ConsoleApplication1
 
         public void Run()
         {
-            Console.SetWindowSize(60, 60);
+            Console.Title = "Ulam Spiral by MrBrenan - 2016";
+            Console.SetWindowSize(60, 60); //Set size
 
-            int max = Console.WindowHeight * Console.WindowWidth;
-            for (int i = 1; i < max+1; i++)
+            x = Console.WindowWidth/2;
+            y = Console.WindowHeight/2;
+
+            var max = Console.WindowHeight*Console.WindowWidth;
+            for (var i = 1; i < max + 1; i++)
             {
-                Console.SetCursorPosition(x,y);
-                if(IsPrime(i))
+                Console.SetCursorPosition(x, y);
+                if (IsPrime(i))
                     Console.ForegroundColor = ConsoleColor.Red;
                 else
                     Console.ForegroundColor = ConsoleColor.Blue;
@@ -38,34 +39,32 @@ namespace ConsoleApplication1
                 Console.Write("▓");
                 FindNext();
 
-                Thread.Sleep(20);
+                Thread.Sleep(25); //Set speed
             }
             Console.ReadKey();
         }
 
-        bool IsPrime(float n)
+        private bool IsPrime(float n)
         {
-            List<int> divisors = new List<int>();
+            var divisors = new List<int>();
             divisors.Clear();
 
             for (float i = 1; i <= Math.Sqrt(n); i++)
             {
-                if((float)(n/i) == (int)(n/i))
+                if (n/i == (int) (n/i))
                 {
-                    divisors.Add((int)i);
-                    divisors.Add((int)(n/i));
+                    divisors.Add((int) i);
+                    divisors.Add((int) (n/i));
                 }
             }
 
             if (divisors.Count == 2)
                 return true;
-            else
-                return false;
+            return false;
         }
 
-        void FindNext()
+        private void FindNext()
         {
-
             switch (_turns)
             {
                 case 0:
@@ -96,12 +95,11 @@ namespace ConsoleApplication1
                 if (_turns == 0 || _turns == 2)
                     _lenght++;
             }
-
         }
 
-        int Increment(int actual, int limit)
+        private int Increment(int actual, int limit)
         {
-            int ret = actual;
+            var ret = actual;
             ret++;
             if (ret > limit)
                 ret = 0;

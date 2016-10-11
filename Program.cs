@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace Ulam
 {
     class Program
     {
         static void Main(string[] args)
         {
             Application.Instance.Run();
-
         }
     }
 }
