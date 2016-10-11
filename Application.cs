@@ -58,7 +58,7 @@ namespace Ulam
                 }
             }
 
-            if (divisors.Count == 2)
+            if (divisors.Count == 2 && n != 1)
                 return true;
             return false;
         }
